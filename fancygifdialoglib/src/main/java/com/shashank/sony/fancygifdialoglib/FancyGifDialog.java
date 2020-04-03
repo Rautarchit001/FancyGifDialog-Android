@@ -19,7 +19,7 @@ public class FancyGifDialog {
     public static class Builder {
         private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
         private Activity activity;
-        private FancyGifDialogListener pListener, nListener, sListener;
+        private FancyGifDialogListener pListener, nListener, sListener, raListner;
         private boolean cancel;
         int gifImageResource;
 
@@ -75,6 +75,12 @@ public class FancyGifDialog {
             return this;
         }
 
+        //set Positive listener
+        public Builder OnPositiveClicked(FancyGifDialogListener raListner) {
+            this.raListner = raListner;
+            return this;
+        }
+		
         //set Negative listener
         public Builder OnNegativeClicked(FancyGifDialogListener nListener) {
             this.nListener = nListener;
@@ -136,6 +142,17 @@ public class FancyGifDialog {
                     }
 
                 });
+				
+				
+					ratingBar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (raListner != null) raListner.OnClick();
+                        dialog.dismiss();
+                    }
+
+                });
+				
             } else {
                 pBtn.setVisibility(View.GONE);
             }
