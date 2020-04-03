@@ -1,6 +1,5 @@
 package com.shashank.sony.fancygifdialoglib;
 
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -12,14 +11,16 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import pl.droidsonroids.gif.GifImageView;
-import android.widget.RatingBar;
 
+/**
+ * Created by Shashank Singhal on 06/01/2018.
+ */
 
 public class FancyGifDialog {
     public static class Builder {
-        private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
+        private String title, message, positiveBtnText, negativeBtnText, pBtnColor, nBtnColor;
         private Activity activity;
-        private FancyGifDialogListener pListener, nListener, sListener;
+        private FancyGifDialogListener pListener, nListener;
         private boolean cancel;
         int gifImageResource;
 
@@ -59,16 +60,6 @@ public class FancyGifDialog {
             return this;
         }
 
-        public Builder setShareBtnText(String shareBtnText) {
-            this.shareBtnText = shareBtnText;
-            return this;
-        }
-
-        public Builder setShareBtnBackground(String sBtnColor) {
-            this.sBtnColor = sBtnColor;
-            return this;
-        }
-
         //set Positive listener
         public Builder OnPositiveClicked(FancyGifDialogListener pListener) {
             this.pListener = pListener;
@@ -78,12 +69,6 @@ public class FancyGifDialog {
         //set Negative listener
         public Builder OnNegativeClicked(FancyGifDialogListener nListener) {
             this.nListener = nListener;
-            return this;
-        }
-
-        //set Negative listener
-        public Builder OnShareClicked(FancyGifDialogListener sListener) {
-            this.sListener = sListener;
             return this;
         }
 
@@ -99,50 +84,23 @@ public class FancyGifDialog {
 
         public FancyGifDialog build() {
             TextView message1, title1;
-            Button nBtn, pBtn, sBtn;
+            Button nBtn, pBtn;
             GifImageView gifImageView;
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.setCancelable(cancel);
             dialog.setContentView(R.layout.fancygifdialog);
-        RatingBar ratingBar = (RatingBar) alertLayout.findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
 
-
-
-        Uri uri = Uri.parse("https://play.google.com/store/apps/details?id="+context.getPackageName()+"&hl=en");
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-        // To count with Play market backstack, After pressing back button,
-        // to taken back to our application, we need to add following flags to intent.
-        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        try {
-            context.startActivity(goToMarket);
-        } catch (ActivityNotFoundException e) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=" + context.getPackageName())));
-        }
-
-
-
-            }
-        });
 
             //getting resources
             title1 = dialog.findViewById(R.id.title);
             message1 = dialog.findViewById(R.id.message);
             nBtn = dialog.findViewById(R.id.negativeBtn);
             pBtn = dialog.findViewById(R.id.positiveBtn);
-            sBtn = dialog.findViewById(R.id.negativeBtn2);
             gifImageView = dialog.findViewById(R.id.gifImageView);
             gifImageView.setImageResource(gifImageResource);
-			
-			
-			
+
             title1.setText(title);
             message1.setText(message);
             if (positiveBtnText != null) {
@@ -179,29 +137,12 @@ public class FancyGifDialog {
             } else {
                 nBtn.setVisibility(View.GONE);
             }
-            if (shareBtnText != null) {
-                nBtn.setText(shareBtnText);
-                nBtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (sListener != null) sListener.OnClick();
-                        dialog.dismiss();
-                    }
-                });
-                if (sBtnColor != null) {
-                    GradientDrawable bgShape = (GradientDrawable) nBtn.getBackground();
-                    bgShape.setColor(Color.parseColor(sBtnColor));
-                }
-            } else {
-                sBtn.setVisibility(View.GONE);
-            }
+
             dialog.show();
 
             return new FancyGifDialog();
-
 
         }
     }
 
 }
-
