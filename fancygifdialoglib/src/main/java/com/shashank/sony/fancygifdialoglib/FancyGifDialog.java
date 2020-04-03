@@ -97,7 +97,8 @@ public class FancyGifDialog {
             return this;
         }
 
-        public FancyGifDialog build(Context context) {
+        public FancyGifDialog build() {
+			Context context;
          TextView message1, title1;
             Button nBtn, pBtn, sBtn;
             GifImageView gifImageView;
@@ -118,6 +119,7 @@ public class FancyGifDialog {
             sBtn = dialog.findViewById(R.id.negativeBtn2);
             gifImageView = dialog.findViewById(R.id.gifImageView);
             gifImageView.setImageResource(gifImageResource);
+			
    ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
