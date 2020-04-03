@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import pl.droidsonroids.gif.GifImageView;
 
+import android.widget.RatingBar;
+
+
 public class FancyGifDialog {
     public static class Builder {
         private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
@@ -95,9 +98,10 @@ public class FancyGifDialog {
         }
 
         public FancyGifDialog build() {
-            TextView message1, title1;
+         TextView message1, title1;
             Button nBtn, pBtn, sBtn;
             GifImageView gifImageView;
+			RatingBar ratingBar;
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -107,6 +111,7 @@ public class FancyGifDialog {
 
             //getting resources
             title1 = dialog.findViewById(R.id.title);
+			ratingBar = dialog.findViewById(R.id.ratingBar);
             message1 = dialog.findViewById(R.id.message);
             nBtn = dialog.findViewById(R.id.negativeBtn);
             pBtn = dialog.findViewById(R.id.positiveBtn);
