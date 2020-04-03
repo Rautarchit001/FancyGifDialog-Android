@@ -1,5 +1,6 @@
 package com.shashank.sony.fancygifdialoglib;
 
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.graphics.Color;
@@ -9,11 +10,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.RatingBar;
-
-import com.techadr.webview.pro.R;
 
 import pl.droidsonroids.gif.GifImageView;
+import android.widget.RatingBar;
+
 
 public class FancyGifDialog {
     public static class Builder {
@@ -204,3 +204,4 @@ public class FancyGifDialog {
     }
 
 }
+
