@@ -76,7 +76,7 @@ public class FancyGifDialog {
         }
 
         //set Positive listener
-        public Builder OnPositiveClicked(FancyGifDialogListener raListner) {
+        public Builder OnRatingBarClicked(FancyGifDialogListener raListner) {
             this.raListner = raListner;
             return this;
         }
