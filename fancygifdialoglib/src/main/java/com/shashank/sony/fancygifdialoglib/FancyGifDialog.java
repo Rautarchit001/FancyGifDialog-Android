@@ -105,19 +105,7 @@ public class FancyGifDialog {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             dialog.setCancelable(cancel);
             dialog.setContentView(R.layout.fancygifdialog);
-         ratingBar = (RatingBar) dialog.findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-
-
-
-
-
-
-
-            }
-        });
+         ratingBar = dialog.findViewById(R.id.ratingBar);
 
             //getting resources
             title1 = dialog.findViewById(R.id.title);
