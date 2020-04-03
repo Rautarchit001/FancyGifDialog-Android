@@ -19,7 +19,7 @@ public class FancyGifDialog {
     public static class Builder {
         private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
         private Activity activity;
-        private FancyGifDialogListener pListener, nListener, sListener, raListner;
+        private FancyGifDialogListener pListener, nListener, sListener;
         private boolean cancel;
         int gifImageResource;
 
@@ -75,12 +75,6 @@ public class FancyGifDialog {
             return this;
         }
 
-        //set Positive listener
-        public Builder OnPositiveClicked(FancyGifDialogListener raListner) {
-            this.raListner = raListner;
-            return this;
-        }
-		
         //set Negative listener
         public Builder OnNegativeClicked(FancyGifDialogListener nListener) {
             this.nListener = nListener;
@@ -104,7 +98,6 @@ public class FancyGifDialog {
         }
 
         public FancyGifDialog build() {
-			Context context;
          TextView message1, title1;
             Button nBtn, pBtn, sBtn;
             GifImageView gifImageView;
@@ -125,20 +118,7 @@ public class FancyGifDialog {
             sBtn = dialog.findViewById(R.id.negativeBtn2);
             gifImageView = dialog.findViewById(R.id.gifImageView);
             gifImageView.setImageResource(gifImageResource);
-			
-   ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-            @Override
-            public void onRatingChanged(RatingBar ratingBar2, float v, boolean b) {
 
-
-                     if (raListner != null) raListner.OnClick();
-                        dialog.dismiss();
-
-
-            }
-        });
-		
-		
             title1.setText(title);
             message1.setText(message);
             if (positiveBtnText != null) {
