@@ -128,7 +128,7 @@ public class FancyGifDialog {
 			
    ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+            public void onRatingChanged(RatingBar ratingBar2, float v, boolean b) {
 
 
                      if (raListner != null) raListner.OnClick();
