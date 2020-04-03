@@ -19,7 +19,7 @@ public class FancyGifDialog {
     public static class Builder {
         private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
         private Activity activity;
-        private FancyGifDialogListener pListener, nListener, sListener;
+        private FancyGifDialogListener pListener, nListener, sListener, raListner;
         private boolean cancel;
         int gifImageResource;
 
@@ -75,6 +75,12 @@ public class FancyGifDialog {
             return this;
         }
 
+        //set Positive listener
+        public Builder OnPositiveClicked(FancyGifDialogListener raListner) {
+            this.raListner = raListner;
+            return this;
+        }
+		
         //set Negative listener
         public Builder OnNegativeClicked(FancyGifDialogListener nListener) {
             this.nListener = nListener;
@@ -125,23 +131,14 @@ public class FancyGifDialog {
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
 
 
-        Uri uri = Uri.parse("https://play.google.com/store/apps/details?id="+context.getPackageName()+"&hl=en");
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-        // To count with Play market backstack, After pressing back button,
-        // to taken back to our application, we need to add following flags to intent.
-        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
-                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
-                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
-        try {
-            context.startActivity(goToMarket);
-        } catch (ActivityNotFoundException e) {
-            context.startActivity(new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://play.google.com/store/apps/details?id=" + context.getPackageName())));
-        }
+                     if (raListner != null) raListner.OnClick();
+                        dialog.dismiss();
 
 
             }
         });
+		
+		
             title1.setText(title);
             message1.setText(message);
             if (positiveBtnText != null) {
