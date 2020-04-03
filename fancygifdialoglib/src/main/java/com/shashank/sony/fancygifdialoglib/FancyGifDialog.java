@@ -97,7 +97,7 @@ public class FancyGifDialog {
             return this;
         }
 
-        public FancyGifDialog build() {
+        public FancyGifDialog build(Context context) {
          TextView message1, title1;
             Button nBtn, pBtn, sBtn;
             GifImageView gifImageView;
@@ -118,7 +118,28 @@ public class FancyGifDialog {
             sBtn = dialog.findViewById(R.id.negativeBtn2);
             gifImageView = dialog.findViewById(R.id.gifImageView);
             gifImageView.setImageResource(gifImageResource);
+   ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
 
+
+        Uri uri = Uri.parse("https://play.google.com/store/apps/details?id="+context.getPackageName()+"&hl=en");
+        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+        // To count with Play market backstack, After pressing back button,
+        // to taken back to our application, we need to add following flags to intent.
+        goToMarket.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY |
+                Intent.FLAG_ACTIVITY_NEW_DOCUMENT |
+                Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        try {
+            context.startActivity(goToMarket);
+        } catch (ActivityNotFoundException e) {
+            context.startActivity(new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://play.google.com/store/apps/details?id=" + context.getPackageName())));
+        }
+
+
+            }
+        });
             title1.setText(title);
             message1.setText(message);
             if (positiveBtnText != null) {
