@@ -12,15 +12,11 @@ import android.widget.TextView;
 
 import pl.droidsonroids.gif.GifImageView;
 
-/**
- * Created by Shashank Singhal on 06/01/2018.
- */
-
 public class FancyGifDialog {
     public static class Builder {
-        private String title, message, positiveBtnText, negativeBtnText, pBtnColor, nBtnColor;
+        private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
         private Activity activity;
-        private FancyGifDialogListener pListener, nListener;
+        private FancyGifDialogListener pListener, nListener, sListener;
         private boolean cancel;
         int gifImageResource;
 
@@ -60,6 +56,16 @@ public class FancyGifDialog {
             return this;
         }
 
+        public Builder setShareBtnText(String shareBtnText) {
+            this.shareBtnText = shareBtnText;
+            return this;
+        }
+
+        public Builder setShareBtnBackground(String sBtnColor) {
+            this.sBtnColor = sBtnColor;
+            return this;
+        }
+
         //set Positive listener
         public Builder OnPositiveClicked(FancyGifDialogListener pListener) {
             this.pListener = pListener;
@@ -69,6 +75,12 @@ public class FancyGifDialog {
         //set Negative listener
         public Builder OnNegativeClicked(FancyGifDialogListener nListener) {
             this.nListener = nListener;
+            return this;
+        }
+
+        //set Negative listener
+        public Builder OnShareClicked(FancyGifDialogListener sListener) {
+            this.sListener = sListener;
             return this;
         }
 
@@ -84,7 +96,7 @@ public class FancyGifDialog {
 
         public FancyGifDialog build() {
             TextView message1, title1;
-            Button nBtn, pBtn;
+            Button nBtn, pBtn, sBtn;
             GifImageView gifImageView;
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -98,6 +110,7 @@ public class FancyGifDialog {
             message1 = dialog.findViewById(R.id.message);
             nBtn = dialog.findViewById(R.id.negativeBtn);
             pBtn = dialog.findViewById(R.id.positiveBtn);
+            sBtn = dialog.findViewById(R.id.negativeBtn2);
             gifImageView = dialog.findViewById(R.id.gifImageView);
             gifImageView.setImageResource(gifImageResource);
 
@@ -137,7 +150,22 @@ public class FancyGifDialog {
             } else {
                 nBtn.setVisibility(View.GONE);
             }
-
+            if (shareBtnText != null) {
+                nBtn.setText(shareBtnText);
+                nBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (sListener != null) sListener.OnClick();
+                        dialog.dismiss();
+                    }
+                });
+                if (sBtnColor != null) {
+                    GradientDrawable bgShape = (GradientDrawable) nBtn.getBackground();
+                    bgShape.setColor(Color.parseColor(sBtnColor));
+                }
+            } else {
+                sBtn.setVisibility(View.GONE);
+            }
             dialog.show();
 
             return new FancyGifDialog();
