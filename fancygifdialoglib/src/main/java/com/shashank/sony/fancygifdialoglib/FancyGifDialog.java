@@ -138,6 +138,8 @@ public class FancyGifDialog {
 	linearlayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+						                        Toast.makeText(MainActivity.this, "Positive", Toast.LENGTH_SHORT).show();
+
                         if (laListner != null) laListner.OnClick();
                         dialog.dismiss();
                     }
