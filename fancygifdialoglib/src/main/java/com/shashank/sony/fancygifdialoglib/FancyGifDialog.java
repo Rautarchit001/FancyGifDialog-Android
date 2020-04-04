@@ -20,7 +20,7 @@ public class FancyGifDialog {
     public static class Builder {
         private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
         private Activity activity;
-        private FancyGifDialogListener pListener, nListener, sListener, raListner, laListner;
+        private FancyGifDialogListener pListener, nListener, sListener, raListner;
         private boolean cancel;
         int gifImageResource;
 
@@ -94,11 +94,6 @@ public class FancyGifDialog {
             return this;
         }
 
-        //set Negative listener
-        public Builder OnLayoutClicked(FancyGifDialogListener laListner) {
-            this.laListner = laListner;
-            return this;
-        }
 		
         public Builder isCancellable(boolean cancel) {
             this.cancel = cancel;
@@ -135,17 +130,7 @@ public class FancyGifDialog {
             gifImageView.setImageResource(gifImageResource);
 
 
-	linearlayout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-						                        Toast.makeText(activity.this, "Positive", Toast.LENGTH_SHORT).show();
 
-                        if (laListner != null) laListner.OnClick();
-                        dialog.dismiss();
-                    }
-
-                });
-				
             title1.setText(title);
             message1.setText(message);
             if (positiveBtnText != null) {
@@ -194,8 +179,8 @@ public class FancyGifDialog {
                 nBtn.setVisibility(View.GONE);
             }
             if (shareBtnText != null) {
-                nBtn.setText(shareBtnText);
-                nBtn.setOnClickListener(new View.OnClickListener() {
+                sBtn.setText(shareBtnText);
+                sBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (sListener != null) sListener.OnClick();
@@ -203,7 +188,7 @@ public class FancyGifDialog {
                     }
                 });
                 if (sBtnColor != null) {
-                    GradientDrawable bgShape = (GradientDrawable) nBtn.getBackground();
+                    GradientDrawable bgShape = (GradientDrawable) sBtn.getBackground();
                     bgShape.setColor(Color.parseColor(sBtnColor));
                 }
             } else {
