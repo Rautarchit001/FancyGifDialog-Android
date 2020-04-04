@@ -11,16 +11,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import pl.droidsonroids.gif.GifImageView;
-import android.widget.LinearLayout;
 
-import android.widget.RatingBar;
 
 
 public class FancyGifDialog {
     public static class Builder {
-        private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
+        private String title, message, positiveBtnText, negativeBtnText, pBtnColor, nBtnColor, shareBtnText, rateBtnText, sBtnColor, rBtnColor;
         private Activity activity;
-        private FancyGifDialogListener pListener, nListener, sListener, raListner;
+        private FancyGifDialogListener pListener, nListener, sListener, rListener;
         private boolean cancel;
         int gifImageResource;
 
@@ -59,8 +57,11 @@ public class FancyGifDialog {
             this.nBtnColor = nBtnColor;
             return this;
         }
-
-        public Builder setShareBtnText(String shareBtnText) {
+		
+		
+		
+		
+		       public Builder setShareBtnText(String shareBtnText) {
             this.shareBtnText = shareBtnText;
             return this;
         }
@@ -70,17 +71,27 @@ public class FancyGifDialog {
             return this;
         }
 
+
+        public Builder setRateBtnText(String rateBtnText) {
+            this.rateBtnText = rateBtnText;
+            return this;
+        }
+
+        public Builder setRateBtnBackground(String rBtnColor) {
+            this.rBtnColor = rBtnColor;
+            return this;
+        }
+		
+		
+		
+
+
         //set Positive listener
         public Builder OnPositiveClicked(FancyGifDialogListener pListener) {
             this.pListener = pListener;
             return this;
         }
 
-        //set Positive listener
-        public Builder OnRatingBarClicked(FancyGifDialogListener raListner) {
-            this.raListner = raListner;
-            return this;
-        }
 		
         //set Negative listener
         public Builder OnNegativeClicked(FancyGifDialogListener nListener) {
@@ -88,11 +99,26 @@ public class FancyGifDialog {
             return this;
         }
 
-        //set Negative listener
+
+
+
+        //set Positive listener
         public Builder OnShareClicked(FancyGifDialogListener sListener) {
             this.sListener = sListener;
             return this;
         }
+
+		
+        //set Negative listener
+        public Builder OnRateClicked(FancyGifDialogListener rListener) {
+            this.rListener = rListener;
+            return this;
+        }
+
+
+
+
+
 
 		
         public Builder isCancellable(boolean cancel) {
@@ -107,10 +133,8 @@ public class FancyGifDialog {
 
         public FancyGifDialog build() {
          TextView message1, title1;
-            Button nBtn, pBtn, sBtn;
+            Button nBtn, pBtn, sBtn, rBtn;
             GifImageView gifImageView;
-			RatingBar ratingBar;
-			LinearLayout linearlayout;
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -120,12 +144,11 @@ public class FancyGifDialog {
 
             //getting resources
             title1 = dialog.findViewById(R.id.title);
-			ratingBar = dialog.findViewById(R.id.ratingBar);
-			linearlayout = dialog.findViewById(R.id.adr);
             message1 = dialog.findViewById(R.id.message);
             nBtn = dialog.findViewById(R.id.negativeBtn);
             pBtn = dialog.findViewById(R.id.positiveBtn);
-            sBtn = dialog.findViewById(R.id.negativeBtn2);
+			sBtn = dialog.findViewById(R.id.shareBtn);
+            rBtn = dialog.findViewById(R.id.rateBtn);
             gifImageView = dialog.findViewById(R.id.gifImageView);
             gifImageView.setImageResource(gifImageResource);
 
@@ -150,15 +173,6 @@ public class FancyGifDialog {
                 });
 				
 				
-					ratingBar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (raListner != null) raListner.OnClick();
-                        dialog.dismiss();
-                    }
-
-                });
-				
             } else {
                 pBtn.setVisibility(View.GONE);
             }
@@ -178,22 +192,48 @@ public class FancyGifDialog {
             } else {
                 nBtn.setVisibility(View.GONE);
             }
-            if (shareBtnText != null) {
+			
+			
+			
+			if (shareBtnText != null) {
                 sBtn.setText(shareBtnText);
+                if (sBtnColor != null) {
+                    GradientDrawable bgShape = (GradientDrawable) sBtn.getBackground();
+                    bgShape.setColor(Color.parseColor(sBtnColor));
+                }
+
                 sBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (sListener != null) sListener.OnClick();
                         dialog.dismiss();
                     }
+
                 });
-                if (sBtnColor != null) {
-                    GradientDrawable bgShape = (GradientDrawable) sBtn.getBackground();
-                    bgShape.setColor(Color.parseColor(sBtnColor));
-                }
+				
+				
             } else {
                 sBtn.setVisibility(View.GONE);
             }
+            if (rateBtnText != null) {
+                rBtn.setText(rateBtnText);
+                rBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (rListener != null) rListener.OnClick();
+                        dialog.dismiss();
+                    }
+                });
+                if (rBtnColor != null) {
+                    GradientDrawable bgShape = (GradientDrawable) rBtn.getBackground();
+                    bgShape.setColor(Color.parseColor(rBtnColor));
+                }
+            } else {
+                rBtn.setVisibility(View.GONE);
+            }
+			
+			
+			
             dialog.show();
 
             return new FancyGifDialog();
