@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import pl.droidsonroids.gif.GifImageView;
+import android.widget.LinearLayout;
 
 import android.widget.RatingBar;
 
@@ -19,7 +20,7 @@ public class FancyGifDialog {
     public static class Builder {
         private String title, message, positiveBtnText, negativeBtnText, shareBtnText, pBtnColor, nBtnColor, sBtnColor;
         private Activity activity;
-        private FancyGifDialogListener pListener, nListener, sListener, raListner;
+        private FancyGifDialogListener pListener, nListener, sListener, raListner, laListner;
         private boolean cancel;
         int gifImageResource;
 
@@ -93,6 +94,12 @@ public class FancyGifDialog {
             return this;
         }
 
+        //set Negative listener
+        public Builder OnLayoutClicked(FancyGifDialogListener laListner) {
+            this.laListner = laListner;
+            return this;
+        }
+		
         public Builder isCancellable(boolean cancel) {
             this.cancel = cancel;
             return this;
@@ -108,6 +115,7 @@ public class FancyGifDialog {
             Button nBtn, pBtn, sBtn;
             GifImageView gifImageView;
 			RatingBar ratingBar;
+			LinearLayout linearlayout;
             final Dialog dialog = new Dialog(activity);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -118,6 +126,7 @@ public class FancyGifDialog {
             //getting resources
             title1 = dialog.findViewById(R.id.title);
 			ratingBar = dialog.findViewById(R.id.ratingBar);
+			linearlayout = dialog.findViewById(R.id.adr);
             message1 = dialog.findViewById(R.id.message);
             nBtn = dialog.findViewById(R.id.negativeBtn);
             pBtn = dialog.findViewById(R.id.positiveBtn);
@@ -125,6 +134,16 @@ public class FancyGifDialog {
             gifImageView = dialog.findViewById(R.id.gifImageView);
             gifImageView.setImageResource(gifImageResource);
 
+
+	linearlayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (laListner != null) laListner.OnClick();
+                        dialog.dismiss();
+                    }
+
+                });
+				
             title1.setText(title);
             message1.setText(message);
             if (positiveBtnText != null) {
