@@ -44,34 +44,6 @@
                     android:layout_height="wrap_content"
                     android:padding="16dp">
 
-                    <LinearLayout
-                        android:id="@+id/adr"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:orientation="horizontal">
-
-                        <RatingBar
-                            android:id="@+id/ratingBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginStart="4dp"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_marginEnd="4dp"
-                            android:layout_marginRight="4dp"
-                            android:layout_marginBottom="4dp"
-                            android:foregroundGravity="center"
-                            android:isIndicator="false"
-                            android:numStars="5"
-                            android:progressTint="@color/Rating_Star_Color"
-
-                            android:rating="4.5"
-                            android:stepSize="0.5" />
-
-                    </LinearLayout>
-
                     <TextView
                         android:id="@+id/title"
                         android:layout_width="match_parent"
@@ -83,7 +55,8 @@
                         android:text="Granny eating chocolate dialog box"
                         android:textAlignment="center"
                         android:textColor="#000000"
-                        android:textSize="16dp" />
+                        android:textSize="16dp"
+                        tools:ignore="UnknownId" />
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -97,16 +70,56 @@
                         android:textSize="14dp"
                         android:layout_below="@+id/title"
                         />
+
+
+                    <LinearLayout
+                        android:id="@+id/bt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/message"
+                        android:layout_marginTop="32dp"
+                        android:clipToPadding="false"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
+                        android:paddingBottom="12dp"
+                        android:weightSum="100">
+
+                        <Button
+                            android:id="@+id/shareBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_weight="35"
+                            android:background="@drawable/curved_shape3"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            tools:text="Cancle" />
+
+                        <Button
+                            android:id="@+id/rateBtn"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:layout_weight="35"
+                            android:background="@drawable/curved_shape3"
+                            android:textAllCaps="false"
+                            android:textColor="#ffffff"
+                            tools:text="Ok" />
+                    </LinearLayout>
+
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/message"
-                        android:orientation="horizontal"
-                        android:gravity="center_horizontal"
+                        android:layout_below="@id/bt"
+                        android:layout_marginTop="22dp"
                         android:clipToPadding="false"
-                        android:weightSum="100"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal"
                         android:paddingBottom="12dp"
-                        android:layout_marginTop="32dp">
+                        android:weightSum="100">
 
                         <Button
                             android:id="@+id/negativeBtn"
@@ -119,18 +132,6 @@
                             android:textAllCaps="false"
                             android:textColor="#ffffff"
                             tools:text="Cancle" />
-
-                        <Button
-                            android:id="@+id/negativeBtn2"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
-                            android:layout_weight="30"
-                            android:background="@drawable/curved_shape3"
-                            android:textAllCaps="false"
-                            android:textColor="#ffffff"
-                            tools:text="Share" />
 
                         <Button
                             android:id="@+id/positiveBtn"
